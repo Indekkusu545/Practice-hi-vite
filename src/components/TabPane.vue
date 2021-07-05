@@ -83,7 +83,7 @@ let isVisible = new Map();
   position: absolute;
   left: 0;
   top: 0;
-  width: 100%;
+  right: 0;
   height: 40px;
   background: white;
   list-style: none;
