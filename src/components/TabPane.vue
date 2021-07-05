@@ -8,7 +8,7 @@
             v-for="(item, index) of menuList"
         >
           <li
-              v-if="isVisible[index]"
+              v-if="isVisible.get(index)"
               class="tab-nav-item"
               :class="{active: selectedMenu === index}"
               @click="$emit('click:selectedMenu', index)"
@@ -18,7 +18,9 @@
         </template>
       </ul>
     </div>
-    <div>
+    <div
+        class="tab-content"
+    >
       <component
           :is="currentTab"
       ></component>
@@ -27,8 +29,15 @@
 </template>
 
 <script>
+import Page1 from "./Page1.vue";
+import Page2 from "./Page2.vue";
+
 export default {
   name: "TabPane",
+  components: {
+    Page1,
+    Page2
+  },
   props: {
     menuList: Array,
     selectedMenu: Number,
@@ -36,19 +45,38 @@ export default {
   },
   data() {
     return {
-      tabs: [],
-      isVisible: [1, 1],
-      currentTab: tabs[0]
+      isVisible
+    }
+  },
+  created() {
+    let index = 0;
+    for (let item of this.menuList) {
+      this.isVisible.set(index++, false);
+    }
+    this.isVisible.set(this.selectedMenu, true);
+  },
+  computed: {
+    currentTab() {
+      return this.tabs[this.selectedMenu];
     }
   },
   emits: [
     'click:selectedMenu'
-  ]
+  ],
+  watch: {
+    selectedMenu(newIndex, oldIndex) {
+      console.log(newIndex, oldIndex);
+      this.isVisible.set(newIndex, 1);
+    }
+  }
 }
+
+let isVisible = new Map();
 </script>
 
 <style scoped>
 #tab {
+  background: #f6f7fb;
 }
 
 .tab-nav {
@@ -59,7 +87,8 @@ export default {
   height: 40px;
   background: white;
   list-style: none;
-  margin: 4px;
+  padding: 4px 40px;
+  margin: 0;
 }
 
 .tab-nav-item {
@@ -75,7 +104,17 @@ export default {
 }
 
 .active {
-  border-top: 4px solid #007aff;
+  border-top-color: #007aff;
   background: #f6f7fb;
+}
+
+.tab-content {
+  position: absolute;
+  left: 0;
+  top: 48px;
+  right: 0;
+  bottom: 0;
+  padding: 10px;
+  text-align: center;
 }
 </style>

@@ -1,5 +1,11 @@
 <template>
-Page1
+  <img
+      src="../assets/nyanners-full_solo.png"
+      alt=""
+      style="
+        height: 100%;
+      "
+  >
 </template>
 
 <script>

@@ -46,15 +46,15 @@ export default {
 ul {
   margin: 0;
   padding: 0;
-  line-height: 40px;
+  line-height: 34px;
   list-style: none;
 }
 li {
   display: block;
-  line-height: 40px;
+  line-height: 34px;
   padding: 0 16px;
   cursor: pointer;
-  border-left: 4px solid transparent;
+  border-left: 6px solid transparent;
 }
 
 li:hover {

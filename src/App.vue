@@ -19,8 +19,6 @@
 import Header from './components/Header.vue'
 import Nav from "./components/Nav.vue";
 import TabPane from "./components/TabPane.vue";
-import Page1 from "./components/Page1.vue";
-import Page2 from "./components/Page1.vue";
 
 export default {
   components: {
