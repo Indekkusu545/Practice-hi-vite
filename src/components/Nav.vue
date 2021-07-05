@@ -1,0 +1,64 @@
+<template>
+  <div id="nav">
+    <ul>
+      <li
+          v-for="(item, index) of menuList"
+          :key="index"
+          :class="{select: selectedMenu === index}"
+          @click="$emit('click:selectedMenu', index)"
+      >
+        {{item}}
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "Nav",
+  props: {
+    menuList: Array,
+    selectedMenu: Number
+  },
+  data() {
+    return {}
+  },
+  emits: [
+      'click:selectedMenu'
+  ]
+}
+</script>
+
+<style scoped>
+#nav {
+  position: absolute;
+  left: 0;
+  top: 60px;
+  bottom: 0;
+  width: 200px;
+  background: white;
+  border-right: 1px solid #e8e8e8;
+}
+.select {
+  color: #007aff;
+  border-left-color: #007aff;
+}
+ul {
+  margin: 0;
+  padding: 0;
+  line-height: 40px;
+  list-style: none;
+}
+li {
+  display: block;
+  line-height: 40px;
+  padding: 0 16px;
+  cursor: pointer;
+  border-left: 4px solid transparent;
+}
+
+li:hover {
+  background: rgba(0, 0, 0, 0.1);
+  border-left-color: #007aff;
+}
+</style>
