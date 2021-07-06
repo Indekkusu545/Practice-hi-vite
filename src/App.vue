@@ -6,10 +6,9 @@
       @click:selected-menu="selectedMenu = $event"
   ></Nav>
   <TabPane
-      class="mainboby"
+      class="main-body"
       :menu-list="menuList"
       :selected-menu="selectedMenu"
-      :tabs="tabs"
       @click:selected-menu="selectedMenu = $event"
   >
   </TabPane>
@@ -29,14 +28,16 @@ export default {
   data() {
     return {
       menuList: [
-          '端业匹配',
-          '权重配置'
+        {
+          title: '端业匹配',
+          path: '/Page1'
+        },
+        {
+          title: '权重配置',
+          path: '/Page2'
+        }
       ],
       selectedMenu: 0,
-      tabs: [
-          'Page1',
-          'Page2'
-      ]
     }
   }
 }
@@ -50,7 +51,7 @@ export default {
   color: #2c3e50;
 }
 
-.mainboby {
+.main-body {
   position: absolute;
   left: 201px;
   top: 60px;

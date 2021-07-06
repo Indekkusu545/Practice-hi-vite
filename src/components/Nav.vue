@@ -5,9 +5,9 @@
           v-for="(item, index) of menuList"
           :key="index"
           :class="{select: selectedMenu === index}"
-          @click="$emit('click:selectedMenu', index)"
+          @click="$emit('click:selectedMenu', index), link(item.path)"
       >
-        {{item}}
+        {{item.title}}
       </li>
     </ul>
   </div>
@@ -25,7 +25,12 @@ export default {
   },
   emits: [
       'click:selectedMenu'
-  ]
+  ],
+  methods: {
+    link(path) {
+      this.$router.push(path);
+    }
+  }
 }
 </script>
 

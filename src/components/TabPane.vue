@@ -11,9 +11,9 @@
               v-if="isVisible.get(index)"
               class="tab-nav-item"
               :class="{active: selectedMenu === index}"
-              @click="$emit('click:selectedMenu', index)"
+              @click="$emit('click:selectedMenu', index), link(item.path)"
           >
-            {{item}}
+            {{item.title}}
           </li>
         </template>
       </ul>
@@ -21,27 +21,17 @@
     <div
         class="tab-content"
     >
-      <component
-          :is="currentTab"
-      ></component>
+      <router-view/>
     </div>
   </div>
 </template>
 
 <script>
-import Page1 from "./Page1.vue";
-import Page2 from "./Page2.vue";
-
 export default {
   name: "TabPane",
-  components: {
-    Page1,
-    Page2
-  },
   props: {
     menuList: Array,
     selectedMenu: Number,
-    tabs: Array
   },
   data() {
     return {
@@ -54,11 +44,7 @@ export default {
       this.isVisible.set(index++, false);
     }
     this.isVisible.set(this.selectedMenu, true);
-  },
-  computed: {
-    currentTab() {
-      return this.tabs[this.selectedMenu];
-    }
+    this.$router.push(this.menuList[this.selectedMenu].path);
   },
   emits: [
     'click:selectedMenu'
@@ -67,6 +53,11 @@ export default {
     selectedMenu(newIndex, oldIndex) {
       console.log(newIndex, oldIndex);
       this.isVisible.set(newIndex, 1);
+    }
+  },
+  methods: {
+    link(path) {
+      this.$router.push(path);
     }
   }
 }
