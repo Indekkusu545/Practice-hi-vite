@@ -2,10 +2,10 @@
   <div id="nav">
     <ul>
       <li
-          v-for="(item, index) of menuList"
-          :key="index"
-          :class="{select: selectedMenu === index}"
-          @click="$emit('click:selectedMenu', index), link(item.path)"
+          v-for="item of menuList"
+          :key="item.id"
+          :class="{select: selectedMenu === item.id}"
+          @click="$emit('click:selectedMenu', item.id); $emit('click:openMenu', item); link(item.path);"
       >
         {{item.title}}
       </li>
@@ -24,7 +24,8 @@ export default {
     return {}
   },
   emits: [
-      'click:selectedMenu'
+      'click:selectedMenu',
+      'click:openMenu'
   ],
   methods: {
     link(path) {

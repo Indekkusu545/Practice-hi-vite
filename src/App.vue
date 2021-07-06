@@ -4,40 +4,55 @@
       :menu-list="menuList"
       :selected-menu="selectedMenu"
       @click:selected-menu="selectedMenu = $event"
+      @click:open-menu="openMenu($event)"
   ></Nav>
-  <TabPane
+  <TabBar
       class="main-body"
-      :menu-list="menuList"
+      :opened-menu="openedMenu"
       :selected-menu="selectedMenu"
       @click:selected-menu="selectedMenu = $event"
-  >
-  </TabPane>
+  ></TabBar>
+  <ContentBody></ContentBody>
 </template>
 
 <script>
 import Header from './components/Header.vue'
 import Nav from "./components/Nav.vue";
-import TabPane from "./components/TabPane.vue";
+import TabBar from "./components/TabBar.vue";
+import ContentBody from "./components/ContentBody.vue";
 
 export default {
   components: {
+    TabBar,
     Header,
     Nav,
-    TabPane
+    ContentBody
   },
   data() {
     return {
       menuList: [
         {
+          id: 0,
           title: '端业匹配',
           path: '/Page1'
         },
         {
+          id: 1,
           title: '权重配置',
           path: '/Page2'
         }
       ],
-      selectedMenu: 0,
+      selectedMenu: -1,
+      openedMenu: [],
+      openedMenuFlags: new Set
+    }
+  },
+  methods: {
+    openMenu(event) {
+      if (this.openedMenuFlags.has(event.id))
+        return;
+      this.openedMenu.push(event);
+      this.openedMenuFlags.add(event.id);
     }
   }
 }
